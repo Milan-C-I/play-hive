@@ -1,103 +1,136 @@
-import Image from "next/image";
+import { Navigation } from "@/components/navigation"
+import { GameCard } from "@/components/game-card"
+import SplitText from "./splittext"
+import ShinyText from "./ShinyText"
 
-export default function Home() {
+const games = [
+  {
+    title: "Emoji Memory Match",
+    description: "Flip and match pairs of cute emojis before the timer runs out! Test your memory and speed.",
+    href: "/games/memory-match",
+    icon: "🧠",
+    difficulty: "Easy" as const,
+    bestScore: "45s",
+  },
+  {
+    title: "2048 Clone",
+    description: "Slide and merge number tiles to reach the magic 2048 tile. Simple rules, endless strategy.",
+    href: "/games/2048",
+    icon: "🔢",
+    difficulty: "Medium" as const,
+    bestScore: "2048",
+  },
+  {
+    title: "Wordle Clone",
+    description: "Guess the hidden word in 6 tries! Letters change color to give you clues.",
+    href: "/games/wordle",
+    icon: "📝",
+    difficulty: "Medium" as const,
+    bestScore: "3/6",
+  },
+  {
+    title: "Typing Speed Test",
+    description: "Type the given text as fast and accurately as you can. Beat your own record!",
+    href: "/games/typing-test",
+    icon: "⌨️",
+    difficulty: "Easy" as const,
+    bestScore: "85 WPM",
+  },
+  {
+    title: "Snake Game",
+    description: "Control the snake, eat the food, and grow longer. One wrong turn and it's game over!",
+    href: "/games/snake",
+    icon: "🐍",
+    difficulty: "Medium" as const,
+    bestScore: "127",
+  },
+  {
+    title: "Minesweeper",
+    description: "Reveal all safe tiles without triggering a mine. Use your logic to survive!",
+    href: "/games/minesweeper",
+    icon: "💣",
+    difficulty: "Hard" as const,
+    bestScore: "89s",
+  },
+  {
+    title: "Tower Blocks",
+    description: "Stack moving blocks as high as you can. Miss too much, and your tower will tumble!",
+    href: "/games/tower-blocks",
+    icon: "🏗️",
+    difficulty: "Medium" as const,
+    bestScore: "24",
+  },
+  {
+    title: "Breakout",
+    description: "Bounce the ball to smash all the bricks. Grab power-ups and clear the stage!",
+    href: "/games/breakout",
+    icon: "🧱",
+    difficulty: "Medium" as const,
+    bestScore: "Level 8",
+  },
+  {
+    title: "Simon Memory",
+    description: "Repeat the sequence of lights and sounds. Each round gets harder!",
+    href: "/games/simon",
+    icon: "🎵",
+    difficulty: "Hard" as const,
+    bestScore: "12",
+  },
+  {
+    title: "Mini Platformer",
+    description: "Run, jump, and collect coins in a tiny 2D world. Finish the level in record time!",
+    href: "/games/platformer",
+    icon: "🏃",
+    difficulty: "Hard" as const,
+    bestScore: "1:23",
+  },
+]
+
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-transparent">
+      <Navigation />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      <main className="pt-20 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <SplitText
+              text="Play Hive!"
+              className="font-bold text-4xl md:text-6xl text-foreground mb-4 p-4"
+              delay={100}
+              duration={0.6}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <div className="bg-card rounded-xl p-6 max-w-3xl mx-auto border border-border">
+              <ShinyText text="Challenge yourself and Experience 10 classic arcade games" disabled={false} speed={2} className='custom-class text-sm md:text-xl' />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {games.map((game, index) => (
+              <div key={game.href} className="fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <GameCard
+                  title={game.title}
+                  description={game.description}
+                  href={game.href}
+                  icon={game.icon}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
+      </div>
     </div>
-  );
+  )
 }
