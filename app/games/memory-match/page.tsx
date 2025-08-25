@@ -67,11 +67,11 @@ export default function MemoryMatchPage() {
   const getDifficultySettings = (diff: Difficulty) => {
     switch (diff) {
       case "easy":
-        return { pairs: 6, cols: 3 }
+        return { pairs: 6, cols: 4, mcols:3 }
       case "medium":
-        return { pairs: 8, cols: 4 }
+        return { pairs: 8, cols: 4, mcols:4 }
       case "hard":
-        return { pairs: 12, cols: 4 }
+        return { pairs: 12, cols: 6, mcols: 4  }
     }
   }
 
@@ -154,6 +154,10 @@ export default function MemoryMatchPage() {
     startGame()
   }
 
+  const goBack = () => {
+    setGameStarted(false)
+  }
+
   const handleHome = () => {
     router.push("/")
   }
@@ -164,11 +168,11 @@ export default function MemoryMatchPage() {
     }
   }, [difficulty, gameStarted, initializeGame])
 
-  const { pairs, cols } = getDifficultySettings(difficulty)
+  const { pairs, cols, mcols } = getDifficultySettings(difficulty)
 
   if (!gameStarted) {
     return (
-      <GameLayout title="Emoji Memory Match">
+      <GameLayout title="Emoji Memory Match" started={gameStarted}>
         <div className="flex items-center justify-center min-h-[calc(100vh-120px)]">
           <div className="max-w-md w-full mx-4 space-y-8">
             <div className="text-center space-y-4">
@@ -183,7 +187,7 @@ export default function MemoryMatchPage() {
 
             <button
               onClick={handleStart}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 px-6 rounded-lg font-semibold text-lg transition-colors"
+              className="w-full cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground py-4 px-6 rounded-lg font-semibold text-lg transition-colors"
             >
               Start Game
             </button>
@@ -194,7 +198,7 @@ export default function MemoryMatchPage() {
   }
 
   return (
-    <GameLayout title="Emoji Memory Match" onRestart={handleRestart}>
+    <GameLayout title="Emoji Memory Match" started={gameStarted} goBack={goBack} onRestart={handleRestart}>
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Game Stats */}
         <div className="flex items-center justify-between mb-8">
@@ -208,13 +212,13 @@ export default function MemoryMatchPage() {
         </div>
 
         {/* Game Grid */}
-        <div className={`grid gap-4 mx-auto max-w-2xl`} style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+        <div className={`grid gap-4 mx-auto max-h-screen max-w-4xl`} style={{ gridTemplateColumns: `repeat(${window.innerWidth > 768 ? cols : mcols}, 1fr)` }}>
           {cards.map((card) => (
             <div
               key={card.id}
               onClick={() => handleCardClick(card.id)}
               className={`
-                aspect-square rounded-lg border-2 cursor-pointer transition-all duration-300 flex items-center justify-center text-4xl
+                aspect-square ${cols === 4 && window.innerWidth > 768 ? "w-36 mx-auto" : ""} rounded-lg border-2 cursor-pointer transition-all duration-300 flex items-center justify-center text-4xl
                 ${
                   card.isMatched
                     ? "bg-accent/20 border-accent"

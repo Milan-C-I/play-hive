@@ -7,27 +7,28 @@ import { ArrowLeft, Home, RotateCcw } from "lucide-react"
 
 interface GameLayoutProps {
   title: string
+  started: boolean
   children: ReactNode
+  goBack?: () => void
   onRestart?: () => void
   showRestart?: boolean
   className?: string
 }
 
-export function GameLayout({ title, children, onRestart, showRestart = true, className = "" }: GameLayoutProps) {
+export function GameLayout({ title, children,goBack, started, onRestart, showRestart = true, className = "" }: GameLayoutProps) {
   return (
-    <div className="min-h-screen bg-transparent">
+    <div className="min-h-screen bg-transparent mb-6">
       {/* Game Header */}
       <header className="bg-card/50 backdrop-blur-sm border-b border-primary/20 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/">
-                <Button variant="ghost" size="sm" className="text-foreground cursor-pointer hover:text-primary">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back
-                </Button>
-              </Link>
-              <h1 className="font-serif font-bold text-2xl text-foreground">{title}</h1>
+              {
+              started && <Button onClick={goBack} className="cursor-pointer">
+                <ArrowLeft className="w-4 h-4"></ArrowLeft>
+              </Button>
+              }
+              <h1 className="font-serif font-bold text-sm md:text-2xl text-foreground">{title}</h1>
             </div>
 
             <div className="flex items-center space-x-2">

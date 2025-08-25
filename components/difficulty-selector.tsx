@@ -10,9 +10,9 @@ interface DifficultySelectorProps {
 }
 
 const difficulties = [
-  { value: "easy" as const, label: "Easy", color: "text-accent", description: "Relaxed pace" },
-  { value: "medium" as const, label: "Medium", color: "text-secondary", description: "Balanced challenge" },
-  { value: "hard" as const, label: "Hard", color: "text-destructive", description: "Expert level" },
+  { value: "easy" as const, label: "Easy", color: "text-green-400", description: "Relaxed pace" },
+  { value: "medium" as const, label: "Medium", color: "text-orange-400", description: "Balanced challenge" },
+  { value: "hard" as const, label: "Hard", color: "text-red-600", description: "Expert level" },
 ]
 
 export function DifficultySelector({ selected, onSelect, className = "" }: DifficultySelectorProps) {
